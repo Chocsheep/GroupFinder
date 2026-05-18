@@ -1,0 +1,18 @@
+{% extends "base/public_base.html" %}
+{% from 'macros/forms.html' import login_form with context %}
+
+
+{% block title %}
+    GroupFinder - Log in
+{% endblock title %}
+
+
+{% block main %}
+    <h2 class="has-text-centered title mt-4">Welcome back!</h2>
+    <h3 class="has-text-centered subtitle">It's good to see you again.</h3>
+    
+    <article>
+        {{ login_form() }}
+    </article>
+
+{% endblock main %}

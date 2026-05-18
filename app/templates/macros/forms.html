@@ -1,0 +1,241 @@
+{% macro signup_form() %}
+
+    {# Form data will only be passed if an invalid sign up has been attempted #}
+    {% if form_data is not defined %}
+        {% set form_data = {} %}
+    {% endif %}
+
+    {# Display errors #}
+    {% if errors is defined %}
+    <div class="mx-6 my-3 notification is-danger is-light">
+        <p>Could not complete sign up. Please correct the following and try again:</p>
+        {% for message in errors %}
+            <li>{{ errors[message] }}</li>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="{{ url_for('process_signup') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
+        <fieldset>
+
+            <div class="field">
+                <div class="is-flex is-align-items-center is-justify-content-center mb-3">
+                    <label class="label" for="username">Username</label>
+
+                    <span class="dropdown is-hoverable">
+                        <span class="dropdown-trigger">
+                        <button type="button" class="button is-white is-medium px-2 py-1" aria-haspopup="true" aria-controls="dropdown-menu4" style="box-shadow: none;">
+                            <span class="icon is-medium has-text-grey">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                        </span>
+                        <span class="dropdown-menu" id="dropdown-menu4" role="menu">
+                        <div class="dropdown-content">
+                            <div class="dropdown-item">
+                            <p>
+                                What do you want your user to be called? Just make sure it has no spaces.
+                            </p>
+                            </div>
+                        </div>
+                        </span>
+                    </span>
+                </div>
+                <div class="control mx-6 my-3">
+                    <input type="text" name="username" id="username" placeholder="Username" value="{{ form_data.username }}" class="input" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="is-flex is-align-items-center is-justify-content-center mb-3">
+                    <label for="new_password" class="label">Choose a password</label>
+
+                    <span class="dropdown is-hoverable">
+                        <span class="dropdown-trigger">
+                        <button class="button is-white is-medium px-2 py-1" type="button" aria-haspopup="true" aria-controls="dropdown-menu4" style="box-shadow: none;">
+                            <span class="icon is-medium has-text-grey">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                        </span>
+                        <span class="dropdown-menu" id="dropdown-menu4" role="menu">
+                        <div class="dropdown-content">
+                            <div class="dropdown-item">
+                            <p>
+                                What password do you want connected to your user? This will (along with your username) be used to log you in.
+                            </p>
+                            </div>
+                        </div>
+                        </span>
+                    </span>
+                </div>
+                <div class="control mx-6 my-3">
+                    <input type="password" name="new_password" id="new_password" placeholder="Password" class="input" required>
+                </div>
+            </div>
+
+            <div class="field">
+            <label for="confirm_password" class="label">Confirm password</label>
+            <div class="control mx-6 my-3">
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="input" required>
+            </div>
+            </div>
+        </fieldset>
+
+        <div class="field is-grouped">
+            <div class="control mx-6 my-3">
+                <button class="button is-link" type="Submit">Sign up</button>
+            </div>
+        </div>
+    </form>
+
+{% endmacro %}
+
+
+{# Form for login - no repopulation for this form #}
+{% macro login_form() %}
+
+    {% if login_failed is defined %}
+        <p class="notification is-danger is-light mx-6">Could not log in due to invalid credentials. Please check your username and password.</p>
+    {% endif %}
+    
+    <form action="{{ url_for('login_user') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
+
+        <fieldset>
+            <div class="field m-6">
+                <label for="username" class="label">Username</label>
+                <input class="input" type="text" name="username" id="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="field m-6">
+                <label for="password" class="label">Password</label>
+                <input class="input" type="password" name="password" id="password" placeholder="Enter your password" required>
+            </div>
+        </fieldset>
+
+        <div class="field is-grouped">
+            <div class="control mx-6 my-3">
+                <button class="button is-link" type="Submit">Log in</button>
+            </div>
+        </div>
+
+    </form>
+
+{% endmacro %} 
+
+
+{# TEMP: dont't need this probably (but we can include it if we need it) #}
+{% macro edit_username() %}
+    {# Form data will only be passed if an invalid sign-up has been attempted #}
+    {% if form_data is not defined %}
+        {% set form_data = {} %}
+    {% endif %}
+
+    {# Display errors #}
+    {% if username_errors is defined %}
+        <div class="mx-6 my-3 notification is-danger is-light">
+        <p>Could not edit username. Please correct the following and try again:</p>
+        {% for message in username_errors %}
+            <li>{{ username_errors[message] }}</li>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    <form action="{{ url_for('change_username') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
+        <fieldset>
+            <input type="hidden" name="form_name" value="edit_username">
+            <label class="label">Change Username</label>
+            <div class="field has-addons mx-6 my-3">
+                <div class="control is-expanded">
+                    <input type="text" name="username" class="input" placeholder="New Username" value="{{ username }}" required>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-link is-fullwidth">Change Username</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endmacro %}
+
+{# TEMP don't need this probably :yum: #}
+{% macro change_password() %}
+    {# Form data will only be passed if an invalid sign-up has been attempted #}
+    {% if form_data is not defined %}
+        {% set form_data = {} %}
+    {% endif %}
+
+    {# Display errors #}
+    {% if password_errors is defined %}
+        <div class="mx-6 my-3 notification is-danger is-light">
+        <p>Could not change password. Please correct the following and try again:</p>
+        {% for message in passwords_errors %}
+            <li>{{ password_errors[message] }}</li>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    <form action="{{ url_for('change_password') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
+        <fieldset class="my-3">
+            <div class="field">
+            <input type="hidden" name="form_name" value="change_password">
+                <label class="label">Change Password</label>
+                <div class="control mx-6 my-3">
+                    <input type="password" name="old_password" class="input" placeholder="Old Password">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control mx-6 my-3">
+                    <input type="password" name="new_password" class="input" placeholder="New Password">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control mx-6 my-3">
+                    <input type="password" name="confirm_password" class="input" placeholder="Confirm New Password">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control mx-6 my-3">
+                    <button type="submit" class="button is-danger is-fullwidth">Change Password</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endmacro %}
+
+
+{# TEMP: Sample form that we need for the moment (will do a proper form for formus and whatnot later) #}
+{% macro add_occasion() %}
+    {# Form data will only be passed if an invalid sign-up has been attempted #}
+    {% if form_data is not defined %}
+        {% set form_data = {} %}
+    {% endif %}
+
+    {# Display errors #}
+    {% if add_occasion_errors is defined %}
+        <div class="mx-6 my-3 notification is-danger is-light">
+        <p>Could not add occasion. Please correct the following and try again:</p>
+        {% for message in add_occasion_errors %}
+            <li>{{ add_occasion_errors[message] }}</li>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    <form action="{{ url_for('add_occasion') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
+        <fieldset>
+            <input type="hidden" name="form_name" value="add_occasion">
+            <label class="label">Add occasion</label>
+            <div class="field has-addons mx-6 my-3">
+                <div class="control is-expanded">
+                    <input type="text" name="occasion" class="input" placeholder="New Occasion" required>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-link is-fullwidth">Add Occasion</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endmacro %}
+
