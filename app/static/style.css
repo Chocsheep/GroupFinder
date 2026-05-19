@@ -13,3 +13,10 @@
 [data-theme="dark"] .theme-adaptive-navbar .navbar-item {
     color: var(--bulma-link-light) !important;
 }
+
+.theme_toggle {
+    background: transparent;
+    border: none;
+    height: 100%;
+    cursor: pointer;
+}

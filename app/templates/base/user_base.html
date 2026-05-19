@@ -29,24 +29,29 @@
 
 <body>
     {% block nav %}
-    {# Common header #}
-    <nav class="navbar theme-adaptive-navbar" role="navigation" aria-label="main navigation">
-        <div id="public_navbar_groupfinder" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="{{ url_for('show_dashboard')}}">
-                    Home
-                </a>
+        {# Common header #}
+        <nav class="navbar theme-adaptive-navbar" role="navigation" aria-label="main navigation">
+            <div id="public_navbar_groupfinder" class="navbar-menu is-active">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="{{ url_for('show_dashboard')}}">
+                        Home
+                    </a>
+                </div>
+                <div class="navbar-end">
+                    <button id="theme-toggle" class="navbar-item button is-text theme-toggle">
+                        <span class="icon">
+                            <i id="theme-toggle-icon" class="fa fa-moon-o"></i>
+                        </span>
+                    </button>
+
+                    <a class="navbar-item" href="{{ url_for('sign_out')}}">
+                        <p>
+                            Sign out
+                        </p>
+                    </a>
+                </div>
             </div>
-            <div class="navbar-end">
-                <a class="navbar-item" href="{{ url_for('sign_out')}}"">
-                    <p>
-                        <!-- {{ session.get('username', '') }} -->
-                        TEMP: Username
-                    </p>
-                </a>
-            </div>
-        </div>
-    </nav>
+        </nav>
     {% endblock nav %}
     
     {% block messages %}
