@@ -56,6 +56,7 @@ def show_profile():
     return render_template('user_pages/profile.html')
 
 
+# we probably dont need this lol
 @app.get('/profile/edit') # Shows the edit profile
 def show_edit_profile_form():
     """Returns the edit profile form (the settings of the user)"""
