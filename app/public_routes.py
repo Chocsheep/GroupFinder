@@ -51,6 +51,7 @@ def show_signup_form():
         return redirect(url_for('show_dashboard'))
     else:
         return render_template('public_pages/signup.html')
+    
 
 @app.post('/login')
 def login_user():

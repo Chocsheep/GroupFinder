@@ -206,36 +206,55 @@
 {% endmacro %}
 
 
-{# TEMP: Sample form that we need for the moment (will do a proper form for formus and whatnot later) #}
-{% macro add_occasion() %}
-    {# Form data will only be passed if an invalid sign-up has been attempted #}
+{% macro filter_tags() %}
     {% if form_data is not defined %}
         {% set form_data = {} %}
     {% endif %}
 
-    {# Display errors #}
-    {% if add_occasion_errors is defined %}
-        <div class="mx-6 my-3 notification is-danger is-light">
-        <p>Could not add occasion. Please correct the following and try again:</p>
-        {% for message in add_occasion_errors %}
-            <li>{{ add_occasion_errors[message] }}</li>
-        {% endfor %}
+    {% if check_filters is defined %}
+        <div class="notification is-danger is-light">
+        <p>Error in filtering tags. Please try again!</p>
         </div>
     {% endif %}
 
-    <form action="{{ url_for('add_occasion') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
-        <fieldset>
-            <input type="hidden" name="form_name" value="add_occasion">
-            <label class="label">Add occasion</label>
-            <div class="field has-addons mx-6 my-3">
-                <div class="control is-expanded">
-                    <input type="text" name="occasion" class="input" placeholder="New Occasion" required>
-                </div>
+    <form action="#" method="post" class="box p-4">
+    <fieldset>
+            <div class="field py-1">
                 <div class="control">
-                    <button type="submit" class="button is-link is-fullwidth">Add Occasion</button>
+                    <label class="checkbox is-size-6">
+                        <input type="checkbox" name="tags" value="Academic">
+                        <span class="ml-2">Academic</span>
+                        <span class="has-text-grey-light font-weight-normal is-size-6">(20)</span>
+                    </label>
                 </div>
             </div>
+
+            <div class="field py-1">
+                <div class="control">
+                    <label class="checkbox is-size-6">
+                        <input type="checkbox" name="tags" value="Social">
+                        <span class="ml-2">Social</span>
+                        <span class="has-text-grey-light font-weight-normal is-size-6">(10)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field py-1">
+                <div class="control">
+                    <label class="checkbox is-size-6">
+                        <input type="checkbox" name="tags" value="COMP">
+                        <span class="ml-2">COMP</span>
+                        <span class="has-text-grey-light font-weight-normal is-size-6">(15)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field mt-5">
+                <div class="control">
+                    <button type="submit" class="button is-link is-fullwidth">Apply Filters</button>
+                </div>
+            </div>
+
         </fieldset>
     </form>
 {% endmacro %}
-

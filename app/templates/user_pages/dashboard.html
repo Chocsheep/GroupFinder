@@ -1,0 +1,84 @@
+{% extends "base/user_base.html" %}
+{% from 'macros/forms.html' import filter_tags with context %}
+
+
+{% block title %}
+    GroupFinder
+{% endblock title %}
+
+
+{% block main %}
+    <main class="m-2">
+        <h2 class="title">Hi there, TEMP.</h2>
+        <h3 class="subtitle">What are you looking for today?</h3>
+        <div class="columns">
+            <div class="column is-one-quarter">
+                <!-- checkbox form -->
+                {{ filter_tags() }}
+            </div>
+            <div class="column">
+                <a class="box" href="#">
+                    <div class="columns is-mobile is-vcentered mb-3">
+                        <div class="column">
+                            <h4 class="title is-4 has-text-weight-bold mb-0">1531 group</h4>
+                        </div>
+                        
+                        <div class="column is-flex is-justify-content-end">
+                            <div class="tags">
+                                <span class="tag is-link is-light">Academic</span>
+                                <span class="tag is-info is-light">COMP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block mb-4">
+                        <div class="icon-text mb-1 block">
+                            <span class="icon has-text-grey">
+                                <i class="fa fa-file-text-o"></i> 
+                            </span>
+                            <span class="is-size-5">Aiming for a Distinction!</span>
+                        </div>
+                        
+                        <div class="icon-text block">
+                            <span class="icon has-text-grey">
+                                <i class="fa fa-map-marker"></i> 
+                            </span>
+                            <span class="is-size-5">Online</span>
+                        </div>
+                    </div>
+
+                    <!-- holy indentation -->
+                    <div class="level pt-2">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <div class="icon-text">
+                                    <span class="icon has-text-info">
+                                        <i class="fa fa-circle fa-2x"></i> 
+                                    </span>
+                                    <span class="is-size-5 ml-2">Person 1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="level-right">
+                            <div class="level-item">
+                                <span class="is-size-5 mr-3">4/5 members</span>
+                                
+                                <span class="icon-text">
+                                    <span class="icon has-text-primary"><i class="fa fa-circle fa-lg"></i></span>
+                                    <span class="icon has-text-link"><i class="fa fa-circle fa-lg"></i></span>
+                                    <span class="icon has-text-info"><i class="fa fa-circle fa-lg"></i></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+    </main>
+
+
+{% endblock main %}
+
