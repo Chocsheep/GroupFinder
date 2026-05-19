@@ -32,24 +32,31 @@
         {# Common header #}
         <nav class="navbar theme-adaptive" role="navigation" aria-label="main navigation">
             <div id="public_navbar_groupfinder" class="navbar-menu is-active">
+                
                 <div class="navbar-start">
-                    <a class="t-item" href="{{ url_for('show_dashboard')}}">
-                        Home
+                    <a class="navbar-item t-item is-flex is-align-items-center" href="{{ url_for('show_dashboard') }}">
+                        <span class="icon mr-2">
+                            <i class="fa fa-home"></i>
+                        </span>
+                        <span>Home</span>
                     </a>
                 </div>
-                <div class="navbar-end">
-                    <button id="theme-toggle" class="t-item button is-text theme-toggle">
+                
+                <div class="navbar-end is-flex is-align-items-center">
+                    <button id="theme-toggle" class="navbar-item button is-text theme-toggle">
                         <span class="icon">
                             <i id="theme-toggle-icon" class="fa fa-moon-o"></i>
                         </span>
                     </button>
 
-                    <a class="t-item" href="{{ url_for('sign_out')}}">
-                        <p>
-                            Sign out
-                        </p>
+                    <a class="navbar-item t-item is-flex is-align-items-center" href="{{ url_for('sign_out') }}">
+                        <span class="icon mr-2">
+                            <i class="fa fa-sign-out"></i>
+                        </span>
+                        <span>Sign out</span>
                     </a>
                 </div>
+
             </div>
         </nav>
     {% endblock nav %}
