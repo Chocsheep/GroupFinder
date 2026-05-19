@@ -46,6 +46,11 @@ def show_dashboard():
 def show_forum():
     return render_template('user_pages/group_page.html')
 
+@app.get('/show_create_group_form')
+def show_create_group_form():
+    print("this works")
+    return render_template('user_pages/create_group.html')
+
 @app.get('/profile') #show the actual name soon
 def show_profile():
     """Shows the users profile"""

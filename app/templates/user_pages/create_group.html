@@ -1,0 +1,14 @@
+{% extends "base/user_base.html" %}
+{% from 'macros/forms.html' import create_group with context %}
+
+{% block title %}
+    Groupfinder: Create group
+{% endblock title %}
+
+{% block main %}
+<main class="columns is-centered m-2">
+    <div class="column is-half-desktop is-two-thirds-tablet">
+        {{ create_group() }}
+    </div>
+</main>
+{% endblock main %}

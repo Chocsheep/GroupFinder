@@ -258,3 +258,78 @@
         </fieldset>
     </form>
 {% endmacro %}
+
+
+
+{% macro create_group() %}
+    {% if form_data is not defined %}
+        {% set form_data = {} %}
+    {% endif %}
+
+    {% if has_creation_error is defined %}
+        <div class="notification is-danger is-light">
+            <p>Error in creating group. Please try again!</p>
+        </div>
+    {% endif %}
+
+    <form action="#" method="post" class="box p-4">
+    <fieldset>
+        <legend class="title is-4 has-text-centered mb-5">Create New Group</legend>
+
+        <div class="field mb-4">
+            <label class="label">Group Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="e.g. Comp1531 Study Group">
+            </div>
+        </div>
+
+        <div class="field mb-4">
+            <label class="label">Location</label>
+            <div class="control has-icons-left">
+                <input class="input" type="text" placeholder="e.g. Room 413 Main Library">
+                <span class="icon is-small is-left has-text-grey">
+                    <i class="fa fa-map-marker"></i>
+                </span>
+            </div>
+            <p class="help has-text-grey-light">Leave blank if not specified yet!</p>
+        </div>
+
+        <div class="field mb-4">
+            <label class="label">Max Members</label>
+            <div class="control has-icons-left">
+                <input class="input" type="number" min="2" max="100" placeholder="e.g. 5">
+                <span class="icon is-small is-left has-text-grey">
+                    <i class="fa fa-users"></i>
+                </span>
+            </div>
+            <p class="help has-text-grey-light">Leave blank if no limit!</p>
+        </div>
+
+        <div class="field mb-5">
+    <label class="label">Tags</label>
+    <div class="is-flex is-flex-wrap-wrap">
+            <label class="checkbox is-size-6 mr-3">
+                <input type="checkbox" class="mr-1"/> Academic
+            </label>
+            <label class="checkbox is-size-6 mr-3">
+                <input type="checkbox" class="mr-1"/> Social
+            </label>
+
+            <label class="checkbox is-size-6 mr-3">
+                <input type="checkbox" class="mr-1"/> COMP
+            </label>
+            
+        </div>
+    </div>
+
+        <div class="field mt-5">
+            <div class="control">
+                <button type="submit" class="button is-link is-fullwidth has-text-weight-bold">
+                    Create Group!
+                </button>
+            </div>
+        </div>
+    </fieldset>
+
+    </form>
+{% endmacro %}
