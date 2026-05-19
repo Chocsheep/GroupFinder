@@ -34,7 +34,7 @@ def return_username_info():
 
 @app.get('/home')
 def show_dashboard():
-    check_login()
+    # check_login()
     return render_template('user_pages/dashboard.html')
 
 
@@ -131,4 +131,5 @@ def sign_out():
     """Sign the user out and return to the home page"""
     session.pop('user_id', None)
     session.pop('username', None)
+    flash('Successfully signed out!')
     return redirect('/')

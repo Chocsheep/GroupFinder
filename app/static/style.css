@@ -14,9 +14,13 @@
     color: var(--bulma-link-light) !important;
 }
 
-.theme_toggle {
-    background: transparent;
-    border: none;
+.theme-toggle, 
+.theme-toggle:hover, 
+.theme-toggle:focus {
+    background: transparent !important;
+    border: none !important;
     height: 100%;
     cursor: pointer;
+    text-decoration: none !important;
+    box-shadow: none !important; /* Removes any accidental button click outlines */
 }
