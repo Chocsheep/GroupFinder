@@ -5,17 +5,79 @@
 {% endblock title %}
 
 {% block main %}
-<main>
-    <section class="hero introduction is-medium">
-        <div class="hero-body">
-            <p class="title">GroupFinder.</p>
-            <p class="subtitle">A app for finding groups at UNSW for everyone, everywhere.</p>
-            <a href="{{ url_for('show_signup_form') }}" class="button is-link">GET STARTED</a>
-            <p>test do i see this</p>
-            
+<div class="container px-4">
 
-            <a href="{{ url_for('show_dashboard') }}" class="button is-link">quick login button DELETE LATER</a>
+    <section class="hero is-medium">
+        <div class="hero-body has-text-centered py-6">
+            <h1 class="title is-1 mb-4">
+                GroupFinder.
+            </h1>
+            <h2 class="subtitle is-4 has-text-grey mb-6">
+                The easiest way to find, create, and manage study groups at UNSW.
+            </h2>
+            <div class="buttons is-justify-content-center">
+                <a href="{{ url_for('show_signup_form') }}" class="button is-link is-large px-6">
+                    <strong>Get Started</strong>
+                </a>
+                <a href="{{ url_for('show_login_form') }}" class="button is-light is-large px-6">
+                    Log In
+                </a>
+            </div>
         </div>
     </section>
-</main>
+
+    <hr class="dropdown-divider my-6" />
+
+    <hr class="dropdown-divider my-6" />
+
+    <section class="section py-5 mb-6">
+        <h2 class="title is-2 has-text-centered mb-6">How does GroupFinder work?</h2>
+        
+        <div class="columns is-vcentered">
+            <div class="column is-5">
+                <p class="is-size-5 has-text-grey mb-4">
+                    Groupfinder provides a central hub to find team members, a study group, or a casual hangout. No more hoping your random lab partner pulls their weight.
+                </p>
+                <p class="is-size-6 has-text-grey">
+                    Create a customized entry detailing what your project needs, set dynamic filters, and watch your workspace fill up with qualified classmates.
+                </p>
+            </div>
+            
+            <div class="column is-6 is-offset-1">
+                <div class="box p-5">
+                    <div class="media mb-4">
+                        <div class="media-left">
+                            <span class="tag is-link is-medium is-rounded">1</span>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-5 mb-1">Create an Account</p>
+                            <p class="has-text-grey">Sign up safely with a unique username and password.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="media mb-4">
+                        <div class="media-left">
+                            <span class="tag is-link is-medium is-rounded">2</span>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-5 mb-1">Browse or Host</p>
+                            <p class="has-text-grey">Search available rooms or launch your own tailored team card.</p>
+                        </div>
+                    </div>
+
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="tag is-link is-medium is-rounded">3</span>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-5 mb-1">Coordinate</p>
+                            <p class="has-text-grey">Connect via Discord handles and start crushing your group objectives!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
 {% endblock main %}
