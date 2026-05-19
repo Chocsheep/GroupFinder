@@ -37,6 +37,12 @@ def show_dashboard():
     check_login()
     return render_template('user_pages/dashboard.html')
 
+
+# delete this later whenever, this is just to check
+@app.get('/show_forum')
+def show_forum():
+    return render_template('user_pages/group_page.html')
+
 @app.get('/profile') #show the actual name soon
 def show_profile():
     """Shows the users profile"""

@@ -1,4 +1,5 @@
 # ill add this later! or whoewver knows what to do :)
+# screw this
 from app import app
 
 
