@@ -11,7 +11,7 @@ import sqlite3
 app = Flask(__name__)
 
 # Define configuration variables
-app.config['DATABASE'] = 'group.db'
+app.config['DATABASE'] = os.path.join(os.path.dirname(__file__), 'group.db')
 
 app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
 # app.config['SECRET_KEY'] = os.urandom(24)
