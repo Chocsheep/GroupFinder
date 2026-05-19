@@ -11,8 +11,10 @@
     <h2 class="has-text-centered title mt-4">Welcome back!</h2>
     <h3 class="has-text-centered subtitle">It's good to see you again.</h3>
     
-    <article>
-        {{ login_form() }}
-    </article>
+    <div class="columns is-centered">
+        <div class="column is-one-third-widescreen is-half-desktop is-two-thirds-tablet">
+            {{ login_form() }}
+        </div>
+    </div>
 
 {% endblock main %}

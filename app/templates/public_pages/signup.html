@@ -11,7 +11,12 @@
 
     <h2 class="has-text-centered title mt-4">Welcome to GroupFinder!</h2>
     <h3 class="subtitle has-text-centered">It's good to see you for the first time.</h3>
-        {{ signup_form() }}
+
+    <div class="columns is-centered">
+        <div class="column is-one-third-widescreen is-half-desktop is-two-thirds-tablet">
+            {{ signup_form() }}
+        </div>
+    </div>
 
 {% endblock main %}
 
