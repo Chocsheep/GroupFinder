@@ -1,5 +1,11 @@
+from gevent import monkey
+monkey.patch_all()
+
+# gevent for web sockets on Railway server
+
 from app import app, socketio
 import os
+
 
 if __name__ == '__main__':
     # Railway injects its own port via environment variable  

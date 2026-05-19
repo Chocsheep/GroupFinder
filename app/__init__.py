@@ -19,7 +19,7 @@ app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
 # change to that when its time ^^
 app.config['SECRET_KEY'] = 'temp'
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='gevent', cors_allowed_origins='*')
 # web sockets for real-time chat function
 
 def init_db():
