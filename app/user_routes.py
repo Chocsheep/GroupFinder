@@ -93,7 +93,8 @@ def create_group():
 @app.get('/home')
 def show_dashboard():
     check_login()
-    return render_template('user_pages/dashboard.html')
+    groups = db.query_all('SELECT * FROM Groups')
+    return render_template('user_pages/dashboard.html', groups=groups)
 
 
 @app.get('/group/<int:group_id>')

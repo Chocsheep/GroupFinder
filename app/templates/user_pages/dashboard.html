@@ -9,22 +9,16 @@
 
 {% block main %}
     <main class="m-2">
-<<<<<<< HEAD
         <div class="columns">
             <div class="column">
                 <h2 class="title">Hi there, TEMP.</h2>
                 <h3 class="subtitle">What are you looking for today?</h3>
             </div>
             <div class="column has-text-right">
-                <a href="{{ url_for('show_create_group_form') }}" class="button is-link is-rounded">Create a group</a>
+                <a href="{{ url_for('show_create_group') }}" class="button is-link is-rounded">Create a group</a>
             </div>
         </div>
         <a href="{{ url_for('show_forum') }}">show forum: DELETE LATER</a>
-=======
-        <h2 class="title">Hi there, {{ session['username'] }}.</h2>
-        <h3 class="subtitle">What are you looking for today?</h3>
-        <a href="{{ url_for('show_create_group') }}">create group: DELETE LATER</a>
->>>>>>> e82125fbf78fff5439d57ea8bd6ff4b3a93d59ec
         <div class="columns">
             <div class="column is-one-quarter">
                 {{ filter_tags() }}
