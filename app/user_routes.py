@@ -1,5 +1,6 @@
 from flask import session, abort, render_template, redirect, url_for, request, flash, current_app
-from app import app
+from app import app, db, socketio
+from flask_socketio import emit, join_room, leave_room
 
 
 import os
@@ -38,6 +39,74 @@ def show_create_group():
     print("TAGS:", tags) 
     print("TAGS COUNT:", len(tags)) 
     return render_template('user_pages/create_group.html', tags=tags)
+
+@app.get('/group/<int:group_id>/join')
+def join_group(group_id):
+    check_login()
+    group = db.query_one('SELECT * FROM Groups WHERE groupid = ?', (group_id,))
+    members = db.query_all('SELECT * FROM GroupMembers WHERE groupid = ?', (group_id,))
+    # Check if room is full
+    if group['max_people'] and len(members) >= group['max_people']:
+        return redirect(url_for('show_group', group_id=group_id))
+    db.edit_db('INSERT OR IGNORE INTO GroupMembers (userid, groupid) VALUES (?, ?)',
+               (session['user_id'], group_id))
+    return redirect(url_for('show_group', group_id=group_id))
+
+@app.get('/group/<int:group_id>/leave')
+def leave_group(group_id):
+    check_login()
+    db.edit_db('DELETE FROM GroupMembers WHERE userid = ? AND groupid = ?',
+               (session['user_id'], group_id))
+    # Check if group is now empty, delete if so
+    remaining = db.query_all('SELECT * FROM GroupMembers WHERE groupid = ?', (group_id,))
+    if len(remaining) == 0:
+        db.edit_db('DELETE FROM GroupTags WHERE groupid = ?', (group_id,))
+        db.edit_db('DELETE FROM Groups WHERE groupid = ?', (group_id,))
+        return redirect(url_for('show_dashboard'))
+    return redirect(url_for('show_group', group_id=group_id))
+
+@app.get('/group/<int:group_id>/delete')
+def delete_group(group_id):
+    check_login()
+    group = db.query_one('SELECT * FROM Groups WHERE groupid = ?', (group_id,))
+    # Only owner can delete
+    if group['owner'] != session['user_id']:
+        abort(403)
+    db.edit_db('DELETE FROM GroupMembers WHERE groupid = ?', (group_id,))
+    db.edit_db('DELETE FROM GroupTags WHERE groupid = ?', (group_id,))
+    db.edit_db('DELETE FROM Groups WHERE groupid = ?', (group_id,))
+    return redirect(url_for('show_dashboard'))
+
+
+# secketio stuff for real-time chat :D
+@socketio.on('join')
+def on_join(data):
+    group_id = str(data['group_id'])  # force to string
+    join_room(group_id)
+    messages = db.query_all('''
+        SELECT Messages.content, Messages.created_at, Users.username
+        FROM Messages
+        JOIN Users ON Messages.userid = Users.userid
+        WHERE Messages.groupid = ?
+        ORDER BY Messages.created_at ASC
+        LIMIT 50
+    ''', (group_id,))
+    emit('load_messages', [dict(m) for m in messages])
+
+@socketio.on('send_message')
+def on_message(data):
+    group_id = str(data['group_id'])  # force to string
+    content = data['content'].strip()
+    if not content:
+        return
+    db.edit_db(
+        'INSERT INTO Messages (groupid, userid, content) VALUES (?, ?, ?)',
+        (group_id, session['user_id'], content)
+    )
+    emit('new_message', {
+        'username': session['username'],
+        'content': content,
+    }, to=group_id)
 
 @app.post('/group/create')
 def create_group():
@@ -93,15 +162,52 @@ def create_group():
 @app.get('/home')
 def show_dashboard():
     check_login()
-    groups = db.query_all('SELECT * FROM Groups')
-    return render_template('user_pages/dashboard.html', groups=groups)
+    
+    selected_tags = request.args.getlist('tags')
+    
+    if selected_tags:
+        # Only show groups that have ALL selected tags
+        placeholders = ','.join('?' * len(selected_tags))
+        groups = db.query_all(f'''
+            SELECT Groups.* FROM Groups
+            JOIN GroupTags ON Groups.groupid = GroupTags.groupid
+            JOIN Tags ON GroupTags.tagid = Tags.tagid
+            WHERE Tags.tagname IN ({placeholders})
+            GROUP BY Groups.groupid
+            HAVING COUNT(DISTINCT Tags.tagid) = ?
+        ''', (*selected_tags, len(selected_tags)))
+    else:
+        groups = db.query_all('SELECT * FROM Groups')
+    
+    # Tags ordered by number of groups using them
+    tags = db.query_all('''
+        SELECT Tags.tagname, COUNT(GroupTags.groupid) as group_count
+        FROM Tags
+        LEFT JOIN GroupTags ON Tags.tagid = GroupTags.tagid
+        GROUP BY Tags.tagid
+        ORDER BY group_count DESC
+    ''')
+    
+    return render_template('user_pages/dashboard.html', groups=groups, tags=tags, selected_tags=selected_tags)
 
 
 @app.get('/group/<int:group_id>')
 def show_group(group_id):
     check_login()
     group = db.query_one('SELECT * FROM Groups WHERE groupid = ?', (group_id,))
-    return render_template('user_pages/group.html', group=group)
+    members = db.query_all('''
+        SELECT Users.userid, Users.username, Users.discord
+        FROM Users
+        JOIN GroupMembers ON Users.userid = GroupMembers.userid
+        WHERE GroupMembers.groupid = ?
+    ''', (group_id,))
+    tags = db.query_all('''
+        SELECT Tags.tagname
+        FROM Tags
+        JOIN GroupTags ON Tags.tagid = GroupTags.tagid
+        WHERE GroupTags.groupid = ?
+    ''', (group_id,))
+    return render_template('user_pages/group_page.html', group=group, members=members, tags=tags)
 
 # delete this later whenever, this is just to check
 @app.get('/show_forum')

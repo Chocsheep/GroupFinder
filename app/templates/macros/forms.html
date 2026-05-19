@@ -207,54 +207,35 @@
 
 
 {% macro filter_tags() %}
-    {% if form_data is not defined %}
-        {% set form_data = {} %}
-    {% endif %}
-
-    {% if check_filters is defined %}
-        <div class="notification is-danger is-light">
-        <p>Error in filtering tags. Please try again!</p>
-        </div>
-    {% endif %}
-
-    <form action="#" method="post" class="box p-4">
-    <fieldset>
-            <div class="field py-1">
-                <div class="control">
-                    <label class="checkbox is-size-6">
-                        <input type="checkbox" name="tags" value="Academic">
-                        <span class="ml-2">Academic</span>
-                        <span class="has-text-grey-light font-weight-normal is-size-6">(20)</span>
-                    </label>
+    <form action="{{ url_for('show_dashboard') }}" method="get" class="box p-4">
+        <p class="has-text-weight-bold mb-3">Filter by Tag</p>
+        <fieldset>
+            <div style="max-height: 400px; overflow-y: auto;">
+                {% for tag in tags %}
+                <div class="field py-1">
+                    <div class="control">
+                        <label class="checkbox is-size-6">
+                            <input type="checkbox" name="tags" value="{{ tag['tagname'] }}"
+                                {% if tag['tagname'] in selected_tags %}checked{% endif %}>
+                            <span class="ml-2">{{ tag['tagname'] }}</span>
+                            <span class="has-text-grey-light is-size-6">({{ tag['group_count'] }})</span>
+                        </label>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-
-            <div class="field py-1">
-                <div class="control">
-                    <label class="checkbox is-size-6">
-                        <input type="checkbox" name="tags" value="Social">
-                        <span class="ml-2">Social</span>
-                        <span class="has-text-grey-light font-weight-normal is-size-6">(10)</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="field py-1">
-                <div class="control">
-                    <label class="checkbox is-size-6">
-                        <input type="checkbox" name="tags" value="COMP">
-                        <span class="ml-2">COMP</span>
-                        <span class="has-text-grey-light font-weight-normal is-size-6">(15)</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="field mt-5">
+            <div class="field mt-4">
                 <div class="control">
                     <button type="submit" class="button is-link is-fullwidth">Apply Filters</button>
                 </div>
             </div>
-
+            {% if selected_tags %}
+            <div class="field mt-2">
+                <div class="control">
+                    <a href="{{ url_for('show_dashboard') }}" class="button is-light is-fullwidth">Clear Filters</a>
+                </div>
+            </div>
+            {% endif %}
         </fieldset>
     </form>
 {% endmacro %}

@@ -6,6 +6,7 @@ from flask import Flask
 import os
 from datetime import date
 import sqlite3
+from flask_socketio import SocketIO
 
 # Create app
 app = Flask(__name__)
@@ -17,6 +18,9 @@ app.config['UPLOAD_FOLDER'] = 'app/static/uploads'
 # app.config['SECRET_KEY'] = os.urandom(24)
 # change to that when its time ^^
 app.config['SECRET_KEY'] = 'temp'
+
+socketio = SocketIO(app)
+# web sockets for real-time chat function
 
 def init_db():
     try:
@@ -55,6 +59,15 @@ def init_db():
                 PRIMARY KEY (userid, groupid),
                 FOREIGN KEY (userid)  REFERENCES Users(userid),
                 FOREIGN KEY (groupid) REFERENCES Groups(groupid)
+            );
+            CREATE TABLE IF NOT EXISTS Messages (
+                messageid   INTEGER PRIMARY KEY AUTOINCREMENT,
+                groupid     INTEGER NOT NULL,
+                userid      INTEGER NOT NULL,
+                content     TEXT NOT NULL,
+                created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (groupid) REFERENCES Groups(groupid),
+                FOREIGN KEY (userid)  REFERENCES Users(userid)
             );
             INSERT OR IGNORE INTO Tags (tagname) VALUES
                 ('Math1131'),

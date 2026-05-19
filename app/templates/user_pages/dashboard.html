@@ -11,14 +11,13 @@
     <main class="m-2">
         <div class="columns">
             <div class="column">
-                <h2 class="title">Hi there, TEMP.</h2>
+                <h2 class="title">Hi there, {{ session['username'] }}.</h2>
                 <h3 class="subtitle">What are you looking for today?</h3>
             </div>
             <div class="column has-text-right">
                 <a href="{{ url_for('show_create_group') }}" class="button is-link is-rounded">Create a group</a>
             </div>
         </div>
-        <a href="{{ url_for('show_forum') }}">show forum: DELETE LATER</a>
         <div class="columns">
             <div class="column is-one-quarter">
                 {{ filter_tags() }}
