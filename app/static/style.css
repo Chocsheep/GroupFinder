@@ -1,18 +1,23 @@
 /* light mode */
-.theme-adaptive-navbar {
+.theme-adaptive {
     background-color: var(--bulma-link-light) !important;
 }
-.theme-adaptive-navbar .navbar-item {
+
+.theme-adaptive.t-item,
+.theme-adaptive .t-item {
     color: var(--bulma-link-dark) !important;
 }
 
 /* dark mode */
-[data-theme="dark"] .theme-adaptive-navbar {
+[data-theme="dark"] .theme-adaptive {
     background-color: var(--bulma-link-dark) !important;
 }
-[data-theme="dark"] .theme-adaptive-navbar .navbar-item {
+[data-theme="dark"] .theme-adaptive.t-item,
+[data-theme="dark"] .theme-adaptive .t-item {
     color: var(--bulma-link-light) !important;
 }
+
+
 
 .theme-toggle, 
 .theme-toggle:hover, 
@@ -24,3 +29,6 @@
     text-decoration: none !important;
     box-shadow: none !important; /* Removes any accidental button click outlines */
 }
+
+
+

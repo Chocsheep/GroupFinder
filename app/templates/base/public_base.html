@@ -28,26 +28,28 @@
 <body>
     {% block nav %}
     {# Common header #}
-    <nav class="navbar theme-adaptive-navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar theme-adaptive" role="navigation" aria-label="main navigation">
         <div id="public_navbar_groupfinder" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{{ url_for('home') }}">
+                <a class="t-item" href="{{ url_for('home') }}">
                     Home
                 </a>
 
             </div>
             <div class="navbar-end">
-                <div class="navbar-item">
+                <div class="t-item">
                     <div class="buttons">
-                        <button id="theme-toggle" class="navbar-item button is-text theme-toggle">
+                        <button id="theme-toggle" class="t-item button is-text theme-toggle">
                             <span class="icon">
                                 <i id="theme-toggle-icon" class="fa fa-moon-o"></i>
                             </span>
                         </button>
-                        <a href="{{ url_for('show_login_form')  }}" class="button is-light">
+                        
+                        <a href="{{ url_for('show_login_form') }}" class="button theme-adaptive t-item">
                             Log in
                         </a>
-                        <a href="{{ url_for('show_signup_form')  }}" class="button is-link">
+                        
+                        <a href="{{ url_for('show_signup_form') }}" class="button is-link">
                             <strong>Sign up</strong>
                         </a>
                     </div>
@@ -82,10 +84,10 @@
     {% block footer %}
     <!-- Common footer -->
     <footer>
-    <nav class="navbar theme-adaptive-navbar mt-6" role="navigation" aria-label="main navigation">
+    <nav class="navbar theme-adaptive mt-6" role="navigation" aria-label="main navigation">
         <div id="public_navbar_groupfinder" class="navbar-menu">
             <div class="navbar-end">
-                <div class="navbar-item">
+                <div class="t-item">
                     <p class="navigation right_nav">Made with <span class="icon"><i class="fa fa-heart has-text-link"></i></span> by GroupFinder</p>
                 </div>
         </div>

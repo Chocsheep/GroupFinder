@@ -30,21 +30,21 @@
 <body>
     {% block nav %}
         {# Common header #}
-        <nav class="navbar theme-adaptive-navbar" role="navigation" aria-label="main navigation">
+        <nav class="navbar theme-adaptive" role="navigation" aria-label="main navigation">
             <div id="public_navbar_groupfinder" class="navbar-menu is-active">
                 <div class="navbar-start">
-                    <a class="navbar-item" href="{{ url_for('show_dashboard')}}">
+                    <a class="t-item" href="{{ url_for('show_dashboard')}}">
                         Home
                     </a>
                 </div>
                 <div class="navbar-end">
-                    <button id="theme-toggle" class="navbar-item button is-text theme-toggle">
+                    <button id="theme-toggle" class="t-item button is-text theme-toggle">
                         <span class="icon">
                             <i id="theme-toggle-icon" class="fa fa-moon-o"></i>
                         </span>
                     </button>
 
-                    <a class="navbar-item" href="{{ url_for('sign_out')}}">
+                    <a class="t-item" href="{{ url_for('sign_out')}}">
                         <p>
                             Sign out
                         </p>
@@ -79,10 +79,10 @@
     {% block footer %}
     <!-- Common footer -->
     <footer>
-    <nav class="navbar theme-adaptive-navbar mt-6" role="navigation" aria-label="main navigation">
+    <nav class="navbar theme-adaptive mt-6" role="navigation" aria-label="main navigation">
         <div id="public_navbar_groupfinder" class="navbar-menu">
             <div class="navbar-end">
-                <div class="navbar-item">
+                <div class="t-item">
                     <p class="navigation right_nav">Made with <span class="icon"><i class="fa fa-heart has-text-link"></i></span> by GroupFinder</p>
                 </div>
         </div>
