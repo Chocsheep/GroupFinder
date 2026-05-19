@@ -1,0 +1,17 @@
+{% extends "base/public_base.html" %}
+{% from 'macros/forms.html' import signup_form with context %}
+
+
+{% block title %}
+    GroupFinder - Sign up
+{% endblock title %}
+
+
+{% block main %}
+
+    <h2 class="has-text-centered title mt-4">Welcome to GroupFinder!</h2>
+    <h3 class="subtitle has-text-centered">It's good to see you for the first time.</h3>
+        {{ signup_form() }}
+
+{% endblock main %}
+

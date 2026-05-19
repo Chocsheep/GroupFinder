@@ -1,0 +1,17 @@
+{% extends "base/public_base.html" %}
+
+{% block title %}
+    Welcome to GroupFinder
+{% endblock title %}
+
+{% block main %}
+<main>
+    <section class="hero introduction is-medium">
+        <div class="hero-body">
+            <p class="title">GroupFinder.</p>
+            <p class="subtitle">A app for finding groups at UNSW for everyone, everywhere.</p>
+            <a href="{{ url_for('show_signup_form') }}" class="button is-link">GET STARTED</a>
+        </div>
+    </section>
+</main>
+{% endblock main %}
