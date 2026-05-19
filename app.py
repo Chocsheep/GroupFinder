@@ -17,7 +17,7 @@ def get_db_connection():
 def home():
     conn = get_db_connection()
     conn.close()
-    return render_template("index.html")
+    return render_template("home.html")
  
 if __name__ == '__main__':
     conn = get_db_connection()
