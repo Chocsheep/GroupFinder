@@ -18,7 +18,7 @@
 }
 
 
-
+/* global nav toggle */
 .theme-toggle, 
 .theme-toggle:hover, 
 .theme-toggle:focus {
@@ -27,8 +27,15 @@
     height: 100%;
     cursor: pointer;
     text-decoration: none !important;
-    box-shadow: none !important; /* Removes any accidental button click outlines */
+    box-shadow: none !important; 
 }
 
-
-
+/* help icon buttons */
+.is-transparent,
+.is-transparent:hover,
+.is-transparent:focus,
+.is-transparent:active {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}

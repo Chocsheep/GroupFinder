@@ -1,6 +1,6 @@
 {% macro signup_form() %}
 
-    {# Form data will only be passed if an invalid sign up has been attempted #}
+    {# Form data fallback logic #}
     {% if form_data is not defined %}
         {% set form_data = {} %}
     {% endif %}
@@ -8,95 +8,92 @@
     {# Display errors #}
     {% if errors is defined %}
     <div class="mx-6 my-3 notification is-danger is-light">
-        <p>Could not complete sign up. Please correct the following and try again:</p>
+        <p class="has-text-weight-bold mb-2">Could not complete sign up. Please correct the following and try again:</p>
+        <ul>
         {% for message in errors %}
             <li>{{ errors[message] }}</li>
         {% endfor %}
+        </ul>
     </div>
     {% endif %}
 
-    <form action="{{ url_for('process_signup') }}" method="post" class="mx-6 my-3 box has-text-centered p-4">
+    <form action="{{ url_for('process_signup') }}" method="post" class="mx-6 my-3 box theme-adaptive p-5">
         <fieldset>
 
-            <div class="field">
-                <div class="is-flex is-align-items-center is-justify-content-center mb-3">
-                    <label class="label" for="username">Username</label>
-
+            <div class="field mb-4">
+                <div class="is-flex is-align-items-center mb-2">
+                    <label class="label mb-0 mr-2" for="username">Username</label>
+                    
                     <span class="dropdown is-hoverable">
                         <span class="dropdown-trigger">
-                            <button type="button" class="button theme-adaptive t-item is-medium px-2 py-1" aria-haspopup="true" aria-controls="dropdown-menu4" style="box-shadow: none;">
-                                <span class="icon is-medium t-item">
+                            <button type="button" class="button is-transparent px-1 py-0" aria-haspopup="true" aria-controls="dropdown-menu-user">
+                                <span class="icon">
                                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                                 </span>
                             </button>
                         </span>
-                        
-                        <span class="dropdown-menu" id="dropdown-menu4" role="menu">
+                        <span class="dropdown-menu" id="dropdown-menu-user" role="menu">
                             <div class="dropdown-content theme-adaptive">
                                 <div class="dropdown-item">
-                                    <p class="t-item">
-                                        What do you want your user to be called? Just make sure it has no spaces.
-                                    </p>
+                                    <p class="t-item">What do you want your user to be called? Just make sure it has no spaces.</p>
                                 </div>
                             </div>
                         </span>
                     </span>
-                    <div class="control mx-6 my-3">
-                        <input type="text" name="username" id="username" placeholder="Username" value="{{ form_data.username }}" class="input" required>
-                    </div>
+                </div>
+                <div class="control">
+                    <input type="text" name="username" id="username" placeholder="Username" value="{{ form_data.username }}" class="input" required>
                 </div>
             </div>
-            <div class="field">
-                <div class="is-flex is-align-items-center is-justify-content-center mb-3">
-                    <label class="label" for="discord">Discord Username</label>
-                    
+
+            <div class="field mb-4">
+                <div class="is-flex is-align-items-baseline mb-2">
+                    <label class="label mb-0 mr-2" for="discord">Discord Username</label>
+                    <span class="is-size-7 has-text-grey-light">(Optional)</span>
                 </div>
-                <p class="help has-text-grey-light">Optional!</p>
-                <div class="control mx-6 my-3">
+                <div class="control">
                     <input type="text" name="discord" id="discord" placeholder="e.g. chocsheep" value="{{ form_data.discord }}" class="input">
                 </div>
-                
             </div>
-            <div class="field">
-                <div class="is-flex is-align-items-center is-justify-content-center mb-3">
-                    <label for="new_password" class="label">Choose a password</label>
+
+            <div class="field mb-4">
+                <div class="is-flex is-align-items-center mb-2">
+                    <label for="new_password" class="label mb-0 mr-2">Choose a password</label>
 
                     <span class="dropdown is-hoverable">
                         <span class="dropdown-trigger">
-                            <button class="button theme-adaptive t-item is-medium px-2 py-1" type="button" aria-haspopup="true" aria-controls="dropdown-menu4" style="box-shadow: none;">
-                                <span class="icon is-medium t-item">
+                            <button class="button is-transparent px-1 py-0" type="button" aria-haspopup="true" aria-controls="dropdown-menu-pass">
+                                <span class="icon">
                                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                                 </span>
                             </button>
                         </span>
-                        
-                        <span class="dropdown-menu" id="dropdown-menu4" role="menu">
+                        <span class="dropdown-menu" id="dropdown-menu-pass" role="menu">
                             <div class="dropdown-content theme-adaptive">
                                 <div class="dropdown-item">
-                                    <p class="t-item">
-                                        What password do you want connected to your user? This will (along with your username) be used to log you in.
-                                    </p>
+                                    <p class="t-item">What password do you want connected to your user? This will be used to log you in.</p>
                                 </div>
                             </div>
                         </span>
                     </span>
                 </div>
-                <div class="control mx-6 my-3">
+                <div class="control">
                     <input type="password" name="new_password" id="new_password" placeholder="Password" class="input" required>
                 </div>
             </div>
 
-            <div class="field">
-            <label for="confirm_password" class="label">Confirm password</label>
-            <div class="control mx-6 my-3">
-                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="input" required>
+            <div class="field mb-5">
+                <label for="confirm_password" class="label mb-2">Confirm password</label>
+                <div class="control">
+                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="input" required>
+                </div>
             </div>
-            </div>
+            
         </fieldset>
 
-        <div class="field is-grouped">
-            <div class="control mx-6 my-3">
-                <button class="button is-link" type="Submit">Sign up</button>
+        <div class="field mt-5">
+            <div class="control">
+                <button class="button is-link is-fullwidth" type="submit">Sign up</button>
             </div>
         </div>
     </form>
