@@ -9,6 +9,7 @@
 
 {% block main %}
     <main class="m-2">
+<<<<<<< HEAD
         <div class="columns">
             <div class="column">
                 <h2 class="title">Hi there, TEMP.</h2>
@@ -19,74 +20,43 @@
             </div>
         </div>
         <a href="{{ url_for('show_forum') }}">show forum: DELETE LATER</a>
+=======
+        <h2 class="title">Hi there, {{ session['username'] }}.</h2>
+        <h3 class="subtitle">What are you looking for today?</h3>
+        <a href="{{ url_for('show_create_group') }}">create group: DELETE LATER</a>
+>>>>>>> e82125fbf78fff5439d57ea8bd6ff4b3a93d59ec
         <div class="columns">
             <div class="column is-one-quarter">
-                <!-- checkbox form -->
                 {{ filter_tags() }}
             </div>
             <div class="column">
-                <a class="box" href="#">
+                {% for group in groups %}
+                <a class="box" href="{{ url_for('show_group', group_id=group['groupid']) }}">
                     <div class="columns is-mobile is-vcentered mb-3">
                         <div class="column">
-                            <h4 class="title is-4 has-text-weight-bold mb-0">1531 group</h4>
-                        </div>
-                        
-                        <div class="column is-flex is-justify-content-end">
-                            <div class="tags">
-                                <span class="tag is-link is-light">Academic</span>
-                                <span class="tag is-info is-light">COMP</span>
-                            </div>
+                            <h4 class="title is-4 has-text-weight-bold mb-0">{{ group['name'] }}</h4>
                         </div>
                     </div>
-
                     <div class="block mb-4">
                         <div class="icon-text mb-1 block">
                             <span class="icon has-text-grey">
-                                <i class="fa fa-file-text-o"></i> 
+                                <i class="fa fa-file-text-o"></i>
                             </span>
-                            <span class="is-size-5">Aiming for a Distinction!</span>
+                            <span class="is-size-5">{{ group['description'] or 'No description provided.' }}</span>
                         </div>
-                        
                         <div class="icon-text block">
                             <span class="icon has-text-grey">
-                                <i class="fa fa-map-marker"></i> 
+                                <i class="fa fa-map-marker"></i>
                             </span>
-                            <span class="is-size-5">Online</span>
-                        </div>
-                    </div>
-
-                    <!-- holy indentation -->
-                    <div class="level pt-2">
-                        <div class="level-left">
-                            <div class="level-item">
-                                <div class="icon-text">
-                                    <span class="icon has-text-info">
-                                        <i class="fa fa-circle fa-2x"></i> 
-                                    </span>
-                                    <span class="is-size-5 ml-2">Person 1</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="level-right">
-                            <div class="level-item">
-                                <span class="is-size-5 mr-3">4/5 members</span>
-                                
-                                <span class="icon-text">
-                                    <span class="icon has-text-primary"><i class="fa fa-circle fa-lg"></i></span>
-                                    <span class="icon has-text-link"><i class="fa fa-circle fa-lg"></i></span>
-                                    <span class="icon has-text-info"><i class="fa fa-circle fa-lg"></i></span>
-                                </span>
-                            </div>
+                            <span class="is-size-5">{{ group['location'] or 'Location TBD' }}</span>
                         </div>
                     </div>
                 </a>
-
+                {% else %}
+                    <p class="has-text-grey">No groups yet. Be the first to create one!</p>
+                {% endfor %}
             </div>
         </div>
-
     </main>
-
-
 {% endblock main %}
 
