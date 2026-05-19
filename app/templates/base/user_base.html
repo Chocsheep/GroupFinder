@@ -27,7 +27,7 @@
 </head>
 
 
-<body>
+<body class="site-layout">
     {% block nav %}
         {# Common header #}
         <nav class="navbar theme-adaptive" role="navigation" aria-label="main navigation">
@@ -78,22 +78,22 @@
         </div>
     {% endblock messages%}
 
-    {% block main %}
+    <main class="is-flex-grow-1">
+        {% block main %}
 
-    {% endblock main %}
-
+        {% endblock main %}
+    </main>
 
     {% block footer %}
-    <!-- Common footer -->
     <footer>
-    <nav class="navbar theme-adaptive mt-6" role="navigation" aria-label="main navigation">
-        <div id="public_navbar_groupfinder" class="navbar-menu">
-            <div class="navbar-end">
-                <div class="t-item">
-                    <p class="navigation right_nav">Made with <span class="icon"><i class="fa fa-heart has-text-link"></i></span> by GroupFinder</p>
-                </div>
-        </div>
-    </nav>
+        <nav class="navbar theme-adaptive mt-6" role="navigation" aria-label="main navigation">
+            <div id="public_navbar_groupfinder" class="navbar-menu is-active">
+                <div class="navbar-end is-flex is-align-items-center pr-5">
+                    <div class="t-item">
+                        <p class="navigation right_nav">Made with <span class="icon"><i class="fa fa-heart has-text-link"></i></span> by GroupFinder</p>
+                    </div>
+                </div> </div>
+        </nav>
     </footer>
     {% endblock footer %}
 </body>
