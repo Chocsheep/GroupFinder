@@ -1,0 +1,15 @@
+/* light mode */
+.theme-adaptive-navbar {
+    background-color: var(--bulma-link-light) !important;
+}
+.theme-adaptive-navbar .navbar-item {
+    color: var(--bulma-link-dark) !important;
+}
+
+/* dark mode */
+[data-theme="dark"] .theme-adaptive-navbar {
+    background-color: var(--bulma-link-dark) !important;
+}
+[data-theme="dark"] .theme-adaptive-navbar .navbar-item {
+    color: var(--bulma-link-light) !important;
+}

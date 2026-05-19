@@ -37,7 +37,14 @@ def show_dashboard():
     """The home page for a logged in user, showing all of their tasks"""
     # First (like most pages) check if the user actually is in the session, and that they have both subjects and folders.
     # check_login()
+    # ive gotten rid of this just because i just need to show it
     return render_template('user_pages/dashboard.html')
+
+
+# delete this later whenever, this is just to check
+@app.get('/show_forum')
+def show_forum():
+    return render_template('user_pages/group_page.html')
 
 @app.get('/profile') #show the actual name soon
 def show_profile():
