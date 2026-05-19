@@ -34,9 +34,7 @@ def return_username_info():
 
 @app.get('/home')
 def show_dashboard():
-    """The home page for a logged in user, showing all of their tasks"""
-    # First (like most pages) check if the user actually is in the session, and that they have both subjects and folders.
-    # check_login()
+    check_login()
     return render_template('user_pages/dashboard.html')
 
 @app.get('/profile') #show the actual name soon
