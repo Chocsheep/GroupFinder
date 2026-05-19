@@ -17,6 +17,10 @@ def get_db_connection():
 def home():
     conn = get_db_connection()
     conn.close()
+    return render_template("home.html")
+
+@app.route("/testing")
+def test():
     return render_template("login.html")
  
 if __name__ == '__main__':
