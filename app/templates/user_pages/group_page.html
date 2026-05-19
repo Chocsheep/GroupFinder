@@ -86,10 +86,11 @@
                 <h2 class="title is-4 mb-5 pb-2">
                     Members <span class="has-text-grey-light is-size-5">({{ members|length }}{% if group['max_people'] %}/{{ group['max_people'] }}{% endif %})</span>
                 </h2>
+                {% set colours = ['has-text-info', 'has-text-warning', 'has-text-success', 'has-text-danger', 'has-text-primary', 'has-text-link'] %}
                 <div>
                     {% for member in members %}
                     <div class="is-flex is-align-items-center mb-5">
-                        <span class="icon is-large has-text-info mr-3">
+                        <span class="icon is-large {{ colours[loop.index0 % colours|length] }} mr-3">
                             <i class="fa fa-circle fa-3x"></i>
                         </span>
                         <div>
@@ -101,7 +102,6 @@
                             </div>
                             <p class="is-size-6 has-text-grey">{{ member['discord'] or 'No discord' }}</p>
                         </div>
-                        <p class="is-size-6 has-text-grey"></p>
                     </div>
                     {% endfor %}
                 </div>

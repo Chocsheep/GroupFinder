@@ -24,8 +24,9 @@ def process_signup():
         return render_template('public_pages/signup.html', errors=errors, form_data=form_data)
     else:
         password_hash = generate_password_hash(password)
-        sql = 'INSERT INTO Users (username, password) VALUES (?, ?)'
-        data = (form_data['username'], password_hash)
+        discord = request.form.get('discord', '').strip() or None
+        sql = 'INSERT INTO Users (username, discord, password) VALUES (?, ?, ?)'
+        data = (form_data['username'], discord, password_hash)
         db.edit_db(sql, data)
         return redirect(url_for('show_login_form'))
 
