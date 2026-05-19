@@ -16,23 +16,17 @@ def redirect_homepage():
 
 @app.post('/signup')
 def process_signup(): 
-    # Collect form data
     form_data = dict(request.form)
     password = request.form.get('new_password')
-
-    # Validate form
     errors = validate_signup_form(form_data)
     
-    # If there are errors, re-render the form and display them
     if errors:
         return render_template('public_pages/signup.html', errors=errors, form_data=form_data)
     else:
         password_hash = generate_password_hash(password)
-        # Add the user into the database
-        sql = 'INSERT INTO Users (username, password_hash) VALUES (?, ?)'
+        sql = 'INSERT INTO Users (username, password) VALUES (?, ?)'
         data = (form_data['username'], password_hash)
         db.edit_db(sql, data)
-
         return redirect(url_for('show_login_form'))
 
 
@@ -64,17 +58,16 @@ def login_user():
 
     # Get the user details associated with the username entered
     sql = 'SELECT * FROM Users WHERE username = ?'
-    data = (username,)
-    user = db.query_one(sql, data)
+    user = db.query_one(sql, (username,))
 
     if not user:
         # No user with that username exists
         valid_login = False
 
-    elif check_password_hash(user['password_hash'], password):
+    elif check_password_hash(user['password'], password):
         # Login successful - store user id and nickname in session
         valid_login = True
-        session['user_id'] = user['user_id']
+        session['user_id'] = user['userid']
         session['username'] = user['username']
     else:
         # Invalid password
@@ -82,7 +75,7 @@ def login_user():
 
     if valid_login:
         # Redirect to the tasks home page
-        flash(f"Successfully logged in. Welcome to OutfitProject!")
+        flash(f"Successfully logged in. Welcome to GroupFinder!")
         return redirect(url_for('show_dashboard'))
     else:
         # Re-render the login page
