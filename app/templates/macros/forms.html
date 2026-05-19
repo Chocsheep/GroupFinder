@@ -265,28 +265,33 @@
     {% if form_data is not defined %}
         {% set form_data = {} %}
     {% endif %}
-
     {% if has_creation_error is defined %}
         <div class="notification is-danger is-light">
             <p>Error in creating group. Please try again!</p>
         </div>
     {% endif %}
-
-    <form action="#" method="post" class="box p-4">
+    <form action="{{ url_for('create_group') }}" method="post" class="box p-4">
     <fieldset>
         <legend class="title is-4 has-text-centered mb-5">Create New Group</legend>
 
         <div class="field mb-4">
             <label class="label">Group Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="e.g. Comp1531 Study Group">
+                <input class="input" type="text" name="name" placeholder="e.g. Comp1531 Study Group" value="{{ form_data.get('name', '') }}">
+            </div>
+        </div>
+
+        <div class="field mb-4">
+            <label class="label">Description</label>
+            <div class="control">
+                <textarea class="textarea" name="description" placeholder="e.g. Aiming for a distinction, meeting weekly!">{{ form_data.get('description', '') }}</textarea>
             </div>
         </div>
 
         <div class="field mb-4">
             <label class="label">Location</label>
             <div class="control has-icons-left">
-                <input class="input" type="text" placeholder="e.g. Room 413 Main Library">
+                <input class="input" type="text" name="location" placeholder="e.g. Room 413 Main Library" value="{{ form_data.get('location', '') }}">
                 <span class="icon is-small is-left has-text-grey">
                     <i class="fa fa-map-marker"></i>
                 </span>
@@ -297,7 +302,7 @@
         <div class="field mb-4">
             <label class="label">Max Members</label>
             <div class="control has-icons-left">
-                <input class="input" type="number" min="2" max="100" placeholder="e.g. 5">
+                <input class="input" type="number" name="max_people" min="2" max="100" placeholder="e.g. 5" value="{{ form_data.get('max_people', '') }}">
                 <span class="icon is-small is-left has-text-grey">
                     <i class="fa fa-users"></i>
                 </span>
@@ -305,22 +310,25 @@
             <p class="help has-text-grey-light">Leave blank if no limit!</p>
         </div>
 
-        <div class="field mb-5">
-    <label class="label">Tags</label>
-    <div class="is-flex is-flex-wrap-wrap">
-            <label class="checkbox is-size-6 mr-3">
-                <input type="checkbox" class="mr-1"/> Academic
-            </label>
-            <label class="checkbox is-size-6 mr-3">
-                <input type="checkbox" class="mr-1"/> Social
-            </label>
-
-            <label class="checkbox is-size-6 mr-3">
-                <input type="checkbox" class="mr-1"/> COMP
-            </label>
-            
+        <div class="field mb-4">
+            <label class="label">Tags</label>
+            <p class="help has-text-grey-light mb-2">Pick from existing tags, or add a custom one below.</p>
+            <div class="is-flex is-flex-wrap-wrap">
+                {% for tag in tags %}
+                <label class="checkbox is-size-6 mr-3 mb-2">
+                    <input type="checkbox" name="tags" value="{{ tag['tagid'] }}" class="mr-1"/> {{ tag['tagname'] }}
+                </label>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+
+        <div class="field mb-5">
+            <label class="label">Custom Tag</label>
+            <div class="control">
+                <input class="input" type="text" name="custom_tag" placeholder="e.g. Math, Casual, etc...">
+            </div>
+            <p class="help has-text-grey-light">Optional, only fill in if none of the above fit!</p>
+        </div>
 
         <div class="field mt-5">
             <div class="control">
@@ -330,6 +338,5 @@
             </div>
         </div>
     </fieldset>
-
     </form>
 {% endmacro %}
