@@ -74,3 +74,11 @@ init_db()
 
 # Import routes
 from app import user_routes, public_routes
+
+# checking database intialised properly
+@app.route("/dbcheck")
+def db_check():
+    conn = sqlite3.connect(app.config['DATABASE'])
+    tables = conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
+    conn.close()
+    return str([t['name'] for t in tables])
